@@ -1,0 +1,273 @@
+<title>상해 2박 3일</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EEF0F3; --surface:#FFFFFF; --ink:#1A2233; --muted:#667085; --line:#DDE1E8;
+  --accent:#1E3A70; --accent-soft:#E4EAF5; --accent-ink:#1E3A70; --on-accent:#FFFFFF;
+  --food:#1E3A70; --sight:#2B8A8E; --move:#6F86B8; --stay:#98A1AF; --flight:#3C4A63;
+  --hero-a:#1E3A70; --hero-b:#14284F;
+  --shadow:0 1px 2px rgba(20,30,50,.06),0 6px 20px rgba(20,30,50,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#12161D; --surface:#1B212B; --ink:#E8ECF2; --muted:#9AA3B2; --line:#2A3240;
+    --accent:#8FB0F0; --accent-soft:#1E2A42; --accent-ink:#A9C4FF; --on-accent:#0F1A33;
+    --food:#8FB0F0; --sight:#5CC3C6; --move:#9AAEDD; --stay:#8E97A6; --flight:#C9D2E0;
+    --hero-a:#1A2C52; --hero-b:#0F1A33;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#12161D; --surface:#1B212B; --ink:#E8ECF2; --muted:#9AA3B2; --line:#2A3240;
+  --accent:#8FB0F0; --accent-soft:#1E2A42; --accent-ink:#A9C4FF; --on-accent:#0F1A33;
+  --food:#8FB0F0; --sight:#5CC3C6; --move:#9AAEDD; --stay:#8E97A6; --flight:#C9D2E0;
+  --hero-a:#1A2C52; --hero-b:#0F1A33;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;font-size:15px;line-height:1.55}
+.zh{font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--accent-ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.hero{background:linear-gradient(120deg,var(--hero-a),var(--hero-b));color:#fff;padding-block:40px 88px}
+.wrap{max-width:1080px;margin-inline:auto;padding-inline:16px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.9;font-weight:700}
+.hero h1{font-size:clamp(30px,6vw,46px);font-weight:900;margin:6px 0 8px;letter-spacing:-.02em;text-wrap:balance}
+.hero p{margin:0;opacity:.95;max-width:56ch}
+
+.summary{margin-top:-60px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.summary div{background:var(--surface);padding:16px 18px}
+.summary dt{font-size:12px;color:var(--muted);font-weight:500}
+.summary dd{margin:2px 0 0;font-weight:700;font-variant-numeric:tabular-nums}
+.summary small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+
+.daynav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:14px;margin-top:8px}
+.daynav .wrap{display:flex;gap:8px;overflow-x:auto}
+.daynav a{flex:none;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px}
+.daynav a.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:28px;align-items:start;padding-block:8px 48px}
+.day{scroll-margin-top:72px;margin-bottom:36px}
+.dayhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.dayhead h2{margin:0;font-size:22px;font-weight:900;letter-spacing:-.01em}
+.dayhead .date{color:var(--accent-ink);font-weight:700;font-size:14px}
+.daysum{color:var(--muted);margin:0 0 16px}
+.meals{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.meal{background:var(--accent-soft);color:var(--accent-ink);border-radius:8px;padding:6px 10px;font-size:13px;font-weight:500}
+.meal b{font-weight:700}
+
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:58px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.item{display:grid;grid-template-columns:48px 20px minmax(0,1fr);gap:0 10px;align-items:start;margin-bottom:12px}
+.time{font-weight:700;font-variant-numeric:tabular-nums;font-size:14px;padding-top:15px;text-align:right}
+.dot{width:12px;height:12px;border-radius:50%;background:var(--c);margin:19px auto 0;box-shadow:0 0 0 4px var(--ground);position:relative;z-index:1}
+.card{background:var(--surface);border-radius:14px;padding:12px 14px;border:1px solid var(--line);display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start}
+.item.key .card{border-color:var(--c);box-shadow:var(--shadow)}
+.ico{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,var(--surface));color:var(--c)}
+.ico svg{width:20px;height:20px}
+.card h3{margin:0;font-size:16px;font-weight:700;line-height:1.35}
+.card .zh{color:var(--muted);font-size:13px;margin-top:1px}
+.card p{margin:6px 0 0;font-size:14px;color:var(--muted)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:12px;font-weight:500;border-radius:6px;padding:2px 8px;background:var(--ground);color:var(--muted);border:1px solid var(--line)}
+.tag.cat{background:color-mix(in srgb,var(--c) 12%,var(--surface));color:var(--c);border-color:transparent;font-weight:700}
+.card a.more{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;text-decoration:none}
+.card a.more:hover{text-decoration:underline}
+
+aside{display:grid;gap:16px;position:sticky;top:72px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.panel h2{font-size:16px;margin:0 0 4px;font-weight:900}
+.panel .lead{margin:0 0 12px;color:var(--muted);font-size:13px}
+.hotel{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;padding-block:10px;border-top:1px solid var(--line)}
+.hotel:first-of-type{border-top:0}
+.hotel b{font-size:14px}
+.hotel span{font-size:12px;color:var(--muted);grid-column:1/-1}
+.badge{font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;align-self:start;background:var(--accent);color:var(--on-accent)}
+.badge.alt{background:var(--ground);color:var(--muted);border:1px solid var(--line)}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.check label{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;font-size:13px;align-items:start;cursor:pointer}
+.check input{accent-color:var(--accent);margin:2px 0 0;width:16px;height:16px}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:16px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:5px;vertical-align:-1px}
+footer{color:var(--muted);font-size:13px;padding-block:0 40px}
+
+@media (max-width:880px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  aside{position:static}
+  .summary{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:440px){
+  .item{grid-template-columns:40px 16px minmax(0,1fr);gap:0 6px}
+  .tl::before{left:47px}
+  .card{grid-template-columns:minmax(0,1fr)}
+  .ico{display:none}
+}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Shanghai · 上海</div>
+    <h1>상해 2박 3일 여행</h1>
+    <p>홍차오 도착부터 출국까지. 낮에는 걷고, 밤에는 예원·와이탄·판룽톈디 야경. 이동은 도보 + 택시(디디).</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <dl class="summary">
+    <div><dt>도착</dt><dd>17일 10:00<small>홍차오 공항</small></dd></div>
+    <div><dt>출국</dt><dd>19일 18:30<small>홍차오 공항 · 보통 T1</small></dd></div>
+    <div><dt>숙소</dt><dd>홍차오 권역 2박<small>밀레니엄 / 르네상스</small></dd></div>
+    <div><dt>야경</dt><dd>예원·와이탄 / 판룽톈디<small>1일차 / 2일차 · 락번드는 2일차 낮</small></dd></div>
+  </dl>
+</div>
+
+<nav class="daynav" aria-label="날짜 이동">
+  <div class="wrap" id="daynav"></div>
+</nav>
+
+<div class="wrap layout">
+  <main>
+    <div class="legend" id="legend"></div>
+    <div id="days"></div>
+  </main>
+  <aside>
+    <section class="panel">
+      <h2>숙소 추천</h2>
+      <p class="lead">구베이·판룽톈디·3일차 딘타이펑과 짐 찾기가 모두 홍차오 쪽이라 홍차오 숙소가 이동이 가장 짧아요.</p>
+      <div class="hotel"><b>밀레니엄 홍차오</b><em class="badge">추천</em><span>홍차오 개발구 · 1일차 야경 후 복귀 택시 35~40분</span></div>
+      <div class="hotel"><b>르네상스 홍차오</b><em class="badge">추천</em><span>홍차오 권역 · 밀레니엄과 비슷한 동선</span></div>
+      <div class="hotel"><b>콘래드 상하이</b><em class="badge alt">대안</em><span>신천지 · 2~3일차 홍차오 왕복이 늘어남</span></div>
+      <div class="hotel"><b>풀만</b><em class="badge alt">확인</em><span>상하이에 여러 지점 · 위치에 따라 판단</span></div>
+    </section>
+    <section class="panel">
+      <h2>출발 전 체크</h2>
+      <p class="lead">체크 상태는 이 브라우저에만 저장돼요.</p>
+      <ul class="check" id="check"></ul>
+    </section>
+  </aside>
+</div>
+
+<footer class="wrap">이동 시간은 대략치예요. 출발 전 가오더 지도로 한 번 더 확인하세요.</footer>
+
+<script>
+const ICON = {
+  food:'<path d="M7 3v8a2 2 0 0 0 2 2v8M5 3v5M9 3v5M17 3c-2 1-3 4-3 7h3v11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
+  sight:'<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/>',
+  move:'<path d="M5 16V11l2-5h10l2 5v5M5 16h14M5 16v2M19 16v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="13.5" r="1" fill="currentColor"/><circle cx="16" cy="13.5" r="1" fill="currentColor"/>',
+  stay:'<path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7" cy="11" r="1.8" fill="currentColor"/>',
+  flight:'<path d="M2 16l20-6-3-2-7 2-5-5-2 1 3 5-4 1-2-2-1 1 2 4Z" fill="currentColor"/>'
+};
+const CAT = {food:'식사', sight:'관광', move:'이동', stay:'숙소', flight:'항공'};
+
+const DAYS = [
+  { id:'day1', label:'1일차', date:'17일', title:'구베이 → 카페거리 → 신천지 → 예원·와이탄',
+    sum:'서쪽(구베이)에서 동쪽(와이탄)으로 한 방향으로 이동해요.',
+    meals:[['점심','루강샤오전'],['카페','아마수작'],['저녁','페이다추']],
+    items:[
+      ['10:00','flight','홍차오 공항 도착','上海虹桥国际机场','입국 심사와 짐 찾기에 1시간 정도 잡았어요.',[]],
+      ['11:00','stay','숙소에 짐 맡기기','','체크인 전이라 짐만 맡기고 바로 나가요.',['택시 15~20분']],
+      ['12:00','food','루강샤오전 황진점','鹿港小镇(黄金店) · 黄金城道778号','구베이의 대만 요리 식당.',['택시 15분'],'https://you.ctrip.com/food/2/4994164.html',true],
+      ['13:45','sight','우캉루','武康路','우캉맨션 앞에서 플라타너스 길을 따라 걷기 시작해요.',['택시 20분','도보']],
+      ['14:30','sight','우위안루 → 안푸루 → 헝산루 카페거리','五原路 · 安福路 · 衡山路','우캉루와 이어지는 골목들. 카페와 편집숍이 모여 있어요.',['도보']],
+      ['16:45','food','신천지 · 아마수작 신천지점','新天地 · 阿嬷手作 兴业路123弄 6号楼','석고문 골목을 산책하며 아마수작 음료 한 잔.',['택시 10분'],'https://m.map.360.cn/?pid=e243f2805cb14325'],
+      ['17:30','food','페이다추 신천지점','费大厨辣椒炒肉 · 淮海中路333号 新天地广场 4F','후난 요리. 대기가 길어서 도착 전에 원격 줄서기를 추천해요.',['도보'],'https://www.hunantoday.cn/news/xhn/202306/18133293.html',true],
+      ['19:15','sight','예원 야경','豫园','상가와 구곡교 조명. 정원 내부는 낮에만 열어요.',['택시 10분'],null,true],
+      ['20:15','sight','와이탄','外滩','루자쭈이 스카이라인. 조명은 보통 22시쯤 꺼져요.',['도보 20분'],null,true],
+      ['21:15','sight','난징둥루 보행가','南京东路步行街','와이탄에서 이어지는 보행자 거리.',['도보']],
+      ['22:00','move','숙소 복귀','','',['택시 35~40분']]
+    ]},
+  { id:'day2', label:'2일차', date:'18일', title:'난징시루 → 점도덕 → 락번드 → 판룽톈디',
+    sum:'낮에는 시내와 락번드를 보고, 해 질 무렵 판룽톈디로 넘어가 저녁과 야경으로 마무리해요.',
+    meals:[['점심','점도덕'],['카페','BASAO'],['저녁','원구운경']],
+    items:[
+      ['09:30','move','숙소 출발','','',['택시 30분']],
+      ['10:00','sight','징안사','静安寺','난징시루 동선의 출발점.',['도보']],
+      ['10:45','sight','난징시루 산책','南京西路 · 张园','장위안, 플라자 66 등.',['도보']],
+      ['11:15','food','(선택) 멘야 쇼노 펑성리점','麺屋庄野·麺や庄の 丰盛里店 · 茂名北路 丰盛里 1F','도쿄 라멘 브랜드. 점심 전이라 한 그릇 나눠 먹는 정도로 가볍게. 11:00 오픈.',['난징시루역 14번 출구','11:00~14:00'],'https://gs.ctrip.com/html5/you/article/detail/25459639.html'],
+      ['12:00','food','점도덕 바이위란광장점','点都德(白玉兰店) · 东长治路555号 白玉兰广场 L2','광둥식 딤섬. 북와이탄에 있어 락번드와 가까워요.',['택시 15분'],'https://m.map.360.cn/?new=1&pid=31ec5eb3dc8f9206',true],
+      ['13:30','sight','락번드','洛克·外滩源 ROCKBUND','와이탄 북쪽 끝의 근대 건축 거리. 위안밍위안루(圆明园路)를 따라 걸어요.',['택시 10분','도보'],null,true],
+      ['14:30','food','BASAO 락번드점','BASAO tea 佰朔 · 广学大楼 1F (香港路28号)','차 음료 브랜드. 옛 건물 1층이라 쉬어 가기 좋아요.',['도보','10:00~20:00'],'https://www.trip.com/restaurant/china/shanghai/detail/restaurant-143181849/',true],
+      ['15:30','move','판룽톈디로 이동','','가는 길에 숙소가 있으니 들러 쉬었다 가도 돼요.',['택시 50분 안팎']],
+      ['16:30','sight','판룽톈디 산책','蟠龙天地','해 지기 전 수향마을 골목과 운하.',['도보']],
+      ['18:00','food','원구운경 판룽톈디점','元古云境 · 蟠龙天地','창작 중식. 판룽톈디 안 매장이라 영업 여부와 예약을 따중뎬핑에서 확인하세요.',['도보'],null,true],
+      ['19:30','sight','판룽톈디 야경','蟠龙天地','운하와 골목 조명.',['도보'],null,true],
+      ['21:00','move','숙소 복귀','','',['택시 15분']]
+    ]},
+  { id:'day3', label:'3일차', date:'19일', title:'짐 보관 → 딘타이펑 → 짐 찾기 → 출국',
+    sum:'짐은 호텔에 맡기고 딘타이펑에서 여유 있게 점심을 먹은 뒤, 짐을 찾아 공항으로 가요.',
+    meals:[['점심','딘타이펑']],
+    items:[
+      ['09:30','stay','체크아웃 · 짐 보관','','프런트에 짐 맡기기.',[]],
+      ['10:30','sight','상자중심 둘러보기','尚嘉中心 L\'Avenue','점심 전 쇼핑몰 구경.',['택시 10~15분']],
+      ['11:30','food','딘타이펑 상자중심점','鼎泰丰 · 仙霞路99号 尚嘉中心 3F 311','평일 11:00, 주말 10:30 오픈.',['같은 건물'],'https://you.ctrip.com/food/2/5024008.html',true],
+      ['13:15','stay','호텔에서 짐 찾기','','',['택시 10~15분']],
+      ['14:00','sight','홍차오톈디 구경 (선택)','虹桥天地','홍차오역 옆 쇼핑몰. 바로 공항으로 가도 돼요.',['택시 20분']],
+      ['15:15','flight','공항 도착 · 체크인','虹桥机场','홍차오 국제선은 보통 T1에서 출발해요. 홍차오톈디(T2 쪽)에서 T1까지 차로 15~20분이에요.',['택시']],
+      ['18:30','flight','출국','','',[],null,true]
+    ]}
+];
+
+const CHECK = [
+  '한국 여권 무비자 입국 조건 재확인',
+  '알리페이·위챗페이에 해외 카드 등록',
+  '디디(DiDi) 또는 알리페이 택시 호출 준비',
+  '데이터 로밍 또는 eSIM',
+  '가오더(高德) 또는 애플 지도',
+  '따중뎬핑(大众点评)·메이퇀에서 페이다추·점도덕 원격 줄서기 방법 확인',
+  '원구운경 판룽톈디점 영업 여부·예약 확인',
+  '항공권 출발 터미널(T1/T2) 확인'
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const color = t => `var(--${t})`;
+
+document.getElementById('legend').innerHTML = Object.entries(CAT)
+  .map(([k,v]) => `<span style="--c:${color(k)}"><i></i>${v}</span>`).join('');
+
+document.getElementById('daynav').innerHTML = DAYS
+  .map((d,i) => `<a href="#${d.id}" class="${i?'':'on'}">${d.label} · ${d.date}</a>`).join('');
+
+document.getElementById('days').innerHTML = DAYS.map(d => `
+  <section class="day" id="${d.id}">
+    <div class="dayhead"><h2>${d.label} · ${esc(d.title)}</h2><span class="date">${d.date}</span></div>
+    <p class="daysum">${esc(d.sum)}</p>
+    <div class="meals">${d.meals.map(([k,v]) => `<span class="meal">${k} <b>${esc(v)}</b></span>`).join('')}</div>
+    <ol class="tl">${d.items.map(([t,type,name,zh,note,tags,link,key]) => `
+      <li class="item${key?' key':''}" style="--c:${color(type)}">
+        <div class="time">${t}</div><div class="dot"></div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[type]}</svg></div>
+          <div>
+            <h3>${esc(name)}</h3>
+            ${zh?`<div class="zh" lang="zh">${esc(zh)}</div>`:''}
+            ${note?`<p>${esc(note)}</p>`:''}
+            <div class="tags"><span class="tag cat">${CAT[type]}</span>${tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('')}</div>
+            ${link?`<a class="more" href="${link}" target="_blank" rel="noopener">매장 정보 보기 →</a>`:''}
+          </div>
+        </div>
+      </li>`).join('')}
+    </ol>
+  </section>`).join('');
+
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem('sh-check') || '{}'); } catch(e) {}
+document.getElementById('check').innerHTML = CHECK.map((c,i) =>
+  `<li><label><input type="checkbox" id="chk${i}" ${saved[i]?'checked':''}><span>${esc(c)}</span></label></li>`).join('');
+document.getElementById('check').addEventListener('change', e => {
+  saved[e.target.id.slice(3)] = e.target.checked;
+  try { localStorage.setItem('sh-check', JSON.stringify(saved)); } catch(err) {}
+});
+
+const links = [...document.querySelectorAll('#daynav a')];
+const obs = new IntersectionObserver(es => es.forEach(en => {
+  if (en.isIntersecting) links.forEach(a => a.classList.toggle('on', a.hash === '#' + en.target.id));
+}), {rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('.day').forEach(s => obs.observe(s));
+</script>
